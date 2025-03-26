@@ -11,6 +11,7 @@ const withNextJsObfuscator = createNextJsObfuscator(
 );
 
 const nextConfig = withNextJsObfuscator({
+  output: "standalone",
   productionBrowserSourceMaps: false,
   eslint: {
     ignoreDuringBuilds: true,
