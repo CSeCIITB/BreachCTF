@@ -1,6 +1,7 @@
 Flag format: Breach{.*}
 
 Upload your challenge in the following format:
+```
 .
 └─── category
     └── chall-name
@@ -11,3 +12,4 @@ Upload your challenge in the following format:
         ├── attachments
         |   └── server.py
         └── README.md
+```
