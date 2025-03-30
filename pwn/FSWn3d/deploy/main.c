@@ -36,13 +36,17 @@ void vuln() {
     fgets(first_name, sizeof(first_name), stdin);
     first_name[strcspn(first_name, "\n")] = '\0';
 
+    printf("You entered ");
     printf(first_name);
+    printf("\n");
 
     printf("Enter your last name: ");
     fgets(last_name, sizeof(last_name), stdin);
     last_name[strcspn(last_name, "\n")] = '\0';
 
+    printf("You entered ");
     printf(last_name);
+    printf("\n");
 }
 
 int main() {
