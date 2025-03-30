@@ -13,7 +13,6 @@ COPY . .
 RUN chown -R root:root /home/ctf
 RUN chmod -R 755 /home/ctf
 
-RUN make
 RUN chmod 755 main
 
 RUN mv flag.txt /flag_`cat /proc/sys/kernel/random/uuid`.txt
