@@ -15,10 +15,6 @@ RUN chmod -R 755 /home/ctf
 
 RUN chmod 755 main
 
-RUN mv flag.txt /flag_`cat /proc/sys/kernel/random/uuid`.txt
-RUN chown root:root /flag_*.txt
-RUN chmod 444 /flag_*.txt
-
 USER ctf
 EXPOSE 1337
 CMD socat TCP-LISTEN:1337,reuseaddr,fork 'EXEC:./main'
