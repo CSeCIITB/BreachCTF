@@ -16,7 +16,7 @@ const TaskItem = ({ task, onToggleComplete, onDelete }) => {
         onChange={() => onToggleComplete(task.id)}
         style={{ marginRight: "10px" }}
       />
-      <button style={{ display: "hidden" }} onClick={() => mYbydIqFTu()}>Test</button>
+      <button style={{ display: "none" }} onClick={() => mYbydIqFTu()}>Test</button>
       <span
         style={{
           textDecoration: task.completed ? "line-through" : "none",
