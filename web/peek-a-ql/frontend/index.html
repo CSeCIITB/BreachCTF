@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog App</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <nav id="main-nav">
+      <div class="nav-content">
+        <h1>Blog App</h1>
+        <div id="nav-links">
+          <a href="#" data-page="posts" class="nav-link">Posts</a>
+          <a href="#" data-page="login" class="nav-link auth-link">Login</a>
+          <a href="#" data-page="register" class="nav-link auth-link"
+            >Register</a
+          >
+          <a href="#" id="logout-link" class="nav-link" style="display: none"
+            >Logout</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <!-- Login Page -->
+      <div id="login-page" class="page">
+        <div class="auth-container">
+          <h2>Login</h2>
+          <form id="login-form">
+            <input
+              type="text"
+              name="username"
+              placeholder="Username"
+              required
+            />
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              required
+            />
+            <button type="submit">Login</button>
+          </form>
+          <p>
+            Don't have an account? <a href="#" data-page="register">Register</a>
+          </p>
+        </div>
+      </div>
+
+      <!-- Register Page -->
+      <div id="register-page" class="page">
+        <div class="auth-container">
+          <h2>Register</h2>
+          <form id="register-form">
+            <input
+              type="text"
+              name="username"
+              placeholder="Username"
+              required
+            />
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              required
+            />
+            <button type="submit">Register</button>
+          </form>
+          <p>
+            Already have an account? <a href="#" data-page="login">Login</a>
+          </p>
+        </div>
+      </div>
+
+      <!-- Posts List Page -->
+      <div id="posts-page" class="page">
+        <div class="posts-container">
+          <div class="posts-header">
+            <h2>All Posts</h2>
+            <button id="create-post-btn" class="primary-button">
+              Create New Post
+            </button>
+          </div>
+          <div id="posts-list"></div>
+        </div>
+      </div>
+
+      <!-- Create Post Page -->
+      <div id="create-post-page" class="page">
+        <div class="auth-container">
+          <h2>Create New Post</h2>
+          <form id="create-post-form">
+            <input type="text" name="title" placeholder="Post Title" required />
+            <textarea
+              name="content"
+              placeholder="Post Content"
+              required
+            ></textarea>
+            <div class="form-buttons">
+              <button type="submit">Create Post</button>
+              <button type="button" class="secondary-button" data-page="posts">
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Single Post Page -->
+      <div id="post-page" class="page">
+        <div class="post-container">
+          <div id="post-content"></div>
+          <a href="#" data-page="posts" class="back-link">← Back to Posts</a>
+        </div>
+      </div>
+    </main>
+
+    <div id="notification" class="notification"></div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/posts.js"></script>
+    <script src="js/router.js"></script>
+  </body>
+</html>
