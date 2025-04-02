@@ -1,4 +1,4 @@
-CXXFLAGS := -g -O0 -no-pie
+CXXFLAGS := -O0 -no-pie
 
 all: main
 
