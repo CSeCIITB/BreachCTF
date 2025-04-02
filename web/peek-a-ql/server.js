@@ -95,9 +95,6 @@ const root = {
   },
   posts: (_, context) => {
     if (!context.user) throw new Error("Authentication required");
-    if (context.user.username !== "admin") {
-      return posts.filter((post) => post.author.username !== "admin");
-    }
 
     return posts;
   },
