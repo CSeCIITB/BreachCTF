@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Snake</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      html {
+        font-size: 200%;
+        text-align: center;
+        color: white;
+      }
+
+      #game {
+        border: 1px solid white;
+      }
+
+      .field {
+        width: 1rem;
+        height: 1rem;
+        line-height: 1rem;
+        text-indent: -0.2rem;
+      }
+
+      body {
+        background-color: #222;
+        font-family: Arial, sans-serif;
+      }
+
+      #scoreboard {
+        background-color: #f2f264;
+        color: #222;
+        padding: 10px;
+        border-radius: 5px;
+      }
+      #scoreboard.lost {
+        background-color: #f44336;
+        color: white;
+      }
+      #scoreboard.won {
+        background-color: #4caf50;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="scoreboard" style="margin-bottom: 1rem; font-size: 1.5rem">
+      Score: <span id="score">0</span>
+    </div>
+    <p id="message">Reach a score of 10,000 to win!</p>
+
+    <div id="game"></div>
+
+    <script type="module">
+      import init from "./pkg/snake.js";
+
+      async function main() {
+        await init();
+      }
+
+      main();
+    </script>
+  </body>
+</html>
