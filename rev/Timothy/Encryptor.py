@@ -34,7 +34,7 @@ class Encryptor:
       
         ivBinStr += '0'*(self.cellCount-len(ivBinStr))
         binStr += '0'*(self.cellCount-len(binStr))
-        print(len(binStr))
+        # print(len(binStr))
         for i in range(self.cellCount):
             self.oldStates[i] = int(ivBinStr[i])
             self.currentStates[i] = int(binStr[i])

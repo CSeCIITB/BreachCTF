@@ -13,6 +13,7 @@ Timothy.initialize(IV, FLAG)
 
 old, current = Timothy.iterate(1000)
 running = 1
+communicationType = 0
 while running:
     print(
         "Welcome! What would you like to do?\n1: Encrypt something?\n2: Try fruitlessly to break the awesome encryption?\n3: Listen to a joke?\n4: Switch to binary input/output\n5: Switch to conentional input/output\n6: Exit\n"
@@ -20,13 +21,13 @@ while running:
 
     data = input()
     if not data:
-        print("Idk what u entered 1. BOOOOO^2. Goodbye!\n")
+        print("Idk what u entered :(. BOOOOO^2. Goodbye!\n")
         break
     if data.strip() == "1":
         print("Enter something to encrypt:\n")
         data = input()
         if not data:
-            print("Idk what u entered 2. BOOOOO. Goodbye!\n")
+            print("Idk what u entered :((. BOOOOO. Goodbye!\n")
             running = 0
             break
         try:
@@ -37,6 +38,9 @@ while running:
                 except Exception as e:
                     print("Bruh, I need a binary representation. Goodbye!\n")
                     running = 0
+                    break
+            else:
+                val = data.strip()
 
             Anthony.initialize(IV, val)
             iterating = 1
@@ -67,7 +71,7 @@ while running:
                 data =input()
                 if data.strip() not in ["y", "n"]:
                     print(
-                        "Idk what u entered 3. BOOOOO. Goodbye!\n"
+                        "Idk what u entered :(((. BOOOOO. Goodbye!\n"
                     )
                     running = 0
                     break
@@ -81,6 +85,7 @@ while running:
             print(
                 "Something went wrong! I aint dealing with that. Goodbye!\n"
             )
+            # print(e)
             running=0
             break
     elif data.strip() == "2":
@@ -113,16 +118,6 @@ while running:
 
         break
     else:
-        print("Idk what u entered 4. BOOOOO. Goodbye!\n")
+        print("Idk what u entered :(((( . BOOOOO. Goodbye!\n")
         break
 
-
-
-# if __name__ == "__main__":
-#     while True:
-#         try:
-#             start_server()
-#         except Exception as e:
-#             print(e)
-#             print("Restarting server...")
-#     # start_server()
