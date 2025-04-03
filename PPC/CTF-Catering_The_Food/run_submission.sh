@@ -64,7 +64,7 @@ for input_file in /tmp/testcases_copy/input*.txt; do
         passed=$((passed+1))
     else
         echo "Test case $test_index failed."
-        echo "Output: $output"
+        # echo "Output: $output"
     fi
 done
 
