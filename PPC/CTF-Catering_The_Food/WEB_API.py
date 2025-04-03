@@ -12,20 +12,79 @@ os.makedirs(SUBMISSIONS_DIR, exist_ok=True)
 
 submission_page = """
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>CTF PPC Challenge Submission (C++)</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    form {
+      background-color: #fff;
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    label {
+      font-weight: bold;
+      margin-top: 10px;
+      display: block;
+    }
+    textarea, input[type="file"] {
+      width: 100%;
+      margin-top: 5px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    input[type="submit"] {
+      background-color: #5cb85c;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      text-transform: uppercase;
+      cursor: pointer;
+      border-radius: 4px;
+      margin-top: 10px;
+    }
+    input[type="submit"]:hover {
+      background-color: #4cae4c;
+    }
+    p {
+      text-align: center;
+    }
+    a {
+      color: #0275d8;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
   <h1>Submit Your C++ Code</h1>
-  <form action="/submit" method="POST">
-    <textarea name="code" rows="15" cols="80" placeholder="Paste your C++ code here"></textarea><br>
+  <form action="/submit" method="POST" enctype="multipart/form-data">
+    <label for="code">Paste your C++ code here:</label>
+    <textarea id="code" name="code" rows="15" placeholder="Paste your C++ code here"></textarea>
+
     <input type="submit" value="Submit">
   </form>
   <p><a href="/static/CTF-Cater_the_food.pdf" target="_blank">View Question PDF</a></p>
 </body>
 </html>
+
 """
 
 @app.route("/")
