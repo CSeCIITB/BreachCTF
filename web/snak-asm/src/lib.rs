@@ -129,7 +129,7 @@ pub fn render() {
       message.set_inner_text("Looks like you got squiggled out of the game! Better luck next time, snake charmer!");
     } else if game.score >= 10000 {
       scoreboard.set_class_name("won");
-      message.set_inner_text(&format!("You won! Here's the flag: {}", s!("flag{r3vv1ng_w45m_15_fun}")));
+      message.set_inner_text(&format!("You won! Here's the flag: {}", s!("Breach{r3vv1ng_w45m_15_fun}")));
     } else {
       scoreboard.set_class_name("");
       message.set_inner_text("Reach a score of 10,000 to win!");
