@@ -1,0 +1,29 @@
+height = 6969
+
+hash = 00000000545b95108c138019753166d1357acbd15766c791eb0ad63ebea6eb42 
+
+
+./bitcoin-cli getblock 00000000545b95108c138019753166d1357acbd15766c791eb0ad63ebea6eb42  
+{
+  "hash": "00000000545b95108c138019753166d1357acbd15766c791eb0ad63ebea6eb42",
+  "confirmations": 126629,
+  "height": 6969,
+  "version": 1,
+  "versionHex": "00000001",
+  "merkleroot": "313f10ccf958e0035d451d48cb14fe2c3bd4bbc4df4b862793ff020d1d59816f",
+  "time": 1236693063,
+  "mediantime": 1236690280,
+  "nonce": 3355541045,
+  "bits": "1d00ffff",
+  "difficulty": 1,
+  "chainwork": "00000000000000000000000000000000000000000000000000001b3a1b3a1b3a",
+  "nTx": 1,
+  "previousblockhash": "00000000b5c44c71fc6d438a944f5b57c8fdb719dd7639fa94a14576a374598a",
+  "nextblockhash": "000000009c14fcf25accc008b8e411fbdc7cad3ac899e5f7150de1fca3a7c913",
+  "strippedsize": 216,
+  "size": 216,
+  "weight": 864,
+  "tx": [
+    "313f10ccf958e0035d451d48cb14fe2c3bd4bbc4df4b862793ff020d1d59816f"
+  ]
+}

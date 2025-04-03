@@ -1,0 +1,6 @@
+webhook:
+https://discord.com/api/webhooks/1357257773439520768/qDaEp0PQj1s3LWCYxwMI03bw2xusKTRShn7UoiYXAUhb7pajjHA4F_70uxnU64ay4yqC
+ctfd_url:
+https://ctf.breachers.in
+ctfd_api_key:
+ctfd_9f71f48802de49b2bff71483c53c93cbac2398a54b7265831a38fd7697c7ded2
