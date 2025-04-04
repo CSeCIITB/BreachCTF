@@ -44,14 +44,20 @@ COPY static/ /app/static/
 # Ensure run_submission.sh is executable.
 RUN chmod +x /run_submission.sh
 
+# Change ownership of application files to root and set read-only permissions for runneruser.
+RUN chown -R root:root /app /run_submission.sh /testcases /app/static && \
+    # For directories: allow read and execute (traverse) but no write.
+    find /app /run_submission.sh /testcases /app/static -type d -exec chmod 755 {} \; && \
+    # For files: allow read-only access.
+    find /app /run_submission.sh /testcases /app/static -type f -exec chmod 644 {} \; && \
+    # Ensure run_submission.sh remains executable.
+    chmod +x /run_submission.sh
+
 # Create a non-privileged user.
 RUN useradd -m runneruser
 
 # Create a symbolic link so that /home/runner points to /home/runneruser.
 RUN ln -s /home/runneruser /home/runner
-
-# Ensure web-related files and directories are owned by the non-privileged user.
-RUN chown -R runneruser:runneruser /app /run_submission.sh /testcases /app/static
 
 # Create a directory for submissions and change ownership to 'runneruser'
 RUN mkdir -p /tmp/submissions && chown runneruser:runneruser /tmp/submissions
