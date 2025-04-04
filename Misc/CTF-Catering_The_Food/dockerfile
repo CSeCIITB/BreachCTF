@@ -1,0 +1,69 @@
+FROM gcc:10
+
+# Install required build dependencies.
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    g++ \
+    bash \
+    libcap2 \
+    libseccomp2 \
+    procps \
+    pip \
+    wget \
+    git \
+    pkg-config \
+    libcap-dev \
+    libseccomp-dev \
+    asciidoc \
+    docbook-xsl \
+    libxml2-utils \
+    xmlto \
+    libsystemd-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Build and install isolate from source.
+RUN git clone https://github.com/ioi/isolate.git /tmp/isolate && \
+    cd /tmp/isolate && \
+    make && \
+    cp isolate /usr/local/bin/ && \
+    chmod 4755 /usr/local/bin/isolate && \
+    cd / && rm -rf /tmp/isolate
+
+# Create a minimal isolate configuration file.
+RUN mkdir -p /usr/local/etc && echo "seccomp=1" > /usr/local/etc/isolate
+
+# Copy the web API and runner scripts.
+COPY WEB_API.py /app/WEB_API.py
+COPY run_submission.sh /run_submission.sh
+COPY testcases/ /testcases/
+RUN pip install flask
+
+# Copy the static directory containing the question PDF.
+COPY static/ /app/static/
+
+# Ensure run_submission.sh is executable.
+RUN chmod +x /run_submission.sh
+
+# Create a non-privileged user.
+RUN useradd -m runneruser
+
+# Create a symbolic link so that /home/runner points to /home/runneruser.
+RUN ln -s /home/runneruser /home/runner
+
+# Ensure web-related files and directories are owned by the non-privileged user.
+RUN chown -R runneruser:runneruser /app /run_submission.sh /testcases /app/static
+
+# Create a directory for submissions and change ownership to 'runneruser'
+RUN mkdir -p /tmp/submissions && chown runneruser:runneruser /tmp/submissions
+
+# Switch to the non-privileged user.
+USER runneruser
+
+# Set the working directory.
+WORKDIR /app
+
+# Expose the port for the Flask API.
+EXPOSE 5050
+
+# Start the Flask API.
+CMD ["python3", "WEB_API.py"]
