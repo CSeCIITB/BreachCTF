@@ -7,8 +7,10 @@ import uvicorn
 import threading
 import time
 
-
+FLAG = "Breach{Go33a_g0_fas13rrr_378282}"
 app = FastAPI()
+
+candidateNames = ["Bobby the Sentient Blob", "Amelia EarHeartToesNeck", FLAG]
 
 # Allow all origins for development (restrict this in production)
 app.add_middleware(
@@ -55,13 +57,20 @@ class Choice(BaseModel):
     selected_option: str
     donation: float | str
     
+updaterFunc = ""
+THRESHOLD = 100
 def track_votes(name):
     global timeSinceLastVote
     votes[name] += 1
     with open("votes.txt", "a") as f:
         f.write(f"{name} {votes[name]}\n")
-    time.sleep(random.uniform(0.5, 1))
+    print("Verifying")
+    time.sleep(random.uniform(1, 2))
     timeSinceLastVote = 0
+    for i in votes.keys():
+        if(votes[i]>THRESHOLD):
+            updaterFunc
+            
     
 
 @app.post("/submit/")
@@ -77,29 +86,18 @@ async def submit_choice(choice: Choice):
 
     if timeSinceLastVote < timeBetweenVotes:
         return {"message": "Please wait before voting again."}
+    if(choice.donation==""):
+        s = ""
+    else:
+        try:
 
-    try:
-        # Another artificial delay before updating `monies`
-        time.sleep(random.uniform(0.01, 0.05))
-        monies[choice.selected_option] += float(choice.donation)
-    except:
-        with open("charity_donations.txt", "a") as f:
-            f.write(f"{choice.selected_option} {choice.donation}\n")
-        s = "Donation failed. Given to charity instead "
-    
+            monies[choice.selected_option] += float(choice.donation)
+            print(choice.selected_option)
+        except:
+            s = "Donation failed. Given to charity instead \n"
 
-    # Another artificial delay before updating `votes`
-    
     threading.Thread(target=track_votes, args=(choice.selected_option,), daemon=True).start()
     
-    # time.sleep(random.uniform(0.01, 0.5))
-    # with open("votes.txt", "a") as f:
-    #     f.write(f"{choice.selected_option} {votes[choice.selected_option]}\n")
-    # # votes[choice.selected_option] += 1
-    # time.sleep(random.uniform(1, 5))
-
-    # # Simulate updating global variable (unsafe)
-    # timeSinceLastVote = 0
 
     print(f"Vote for {choice.selected_option} received")
     print(f"Current votes: {votes[choice.selected_option]}")
@@ -109,6 +107,14 @@ async def submit_choice(choice: Choice):
 
 @app.get("/votes/")
 async def get_election():
+    for i in votes.keys():
+        if(votes[i]>100):
+
+
+            return {
+
+            }
+
     return {
         "message": f"Candidate A {votes["Candidate A"]}, Candidate B {votes["Candidate B"]}, Candidate C {votes["Candidate C"]}"
     }
@@ -130,12 +136,8 @@ if __name__ == "__main__":
     with open("charity_donations.txt", "w") as f:
         f.write("charity donations\n")
     # asyncio.run(background_task())  # Start the background task
-    threading.Thread(target=my_async_function, daemon=True).start()
+    global updaterFunc
+    updaterFunc = threading.Thread(target=my_async_function, daemon=True)
+    updaterFunc.start()
     
     uvicorn.run(app, host="127.0.0.1", port=8000)
-    
-    
-    
-    # loop = asyncio.get_event_loop()
-    # loop.create_task(votes_updater_server())  # Schedule the updater task
-    # asyncio.run(test())
