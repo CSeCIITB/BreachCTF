@@ -29,8 +29,13 @@ const posts = Array.from({ length: 100 }, () => ({
 const adminPostIndex = Math.floor(Math.random() * posts.length);
 const adminPost = posts[adminPostIndex];
 adminPost.author = admin;
-adminPost.title = "Here's the flag";
-adminPost.content = "Breach{gr4phql_1snt_s0_s3cur3_4ft3r_4ll}";
+
+const flagPost = {
+  id: `post-${Math.random().toString(36).slice(2, 9)}`,
+  title: "Here's the flag",
+  content: "Breach{gr4phql_1snt_s0_s3cur3_4ft3r_4ll}",
+  author: admin,
+};
 
 const schema = buildSchema(`
   type Query {
@@ -96,6 +101,10 @@ const root = {
   posts: (_, context) => {
     if (!context.user) throw new Error("Authentication required");
 
+    if (context.user.username === "admin") {
+      return [flagPost];
+    }
+
     return posts;
   },
   me: (_, context) => {
@@ -160,7 +169,7 @@ app.use(
     rootValue: root,
     graphiql: true,
     context: { user: getUser(req) },
-  }))
+  })),
 );
 
 app.use(express.static("frontend"));
@@ -169,6 +178,6 @@ app.use(express.static("frontend"));
 app.listen(PORT, () => {
   console.log(`[Server] GraphQL server running.`);
   console.log(
-    `[Server] Frontend should fetch from http://localhost:${PORT}/graphql`
+    `[Server] Frontend should fetch from http://localhost:${PORT}/graphql`,
   );
 });
