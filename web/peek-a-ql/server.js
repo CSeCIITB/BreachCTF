@@ -4,6 +4,7 @@ const { buildSchema } = require("graphql");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const sanitizeHtml = require("sanitize-html");
 
 const JWT_SECRET = Math.random().toString(36).slice(2, 10);
 
@@ -114,10 +115,12 @@ const root = {
   createPost: ({ title, content }, context) => {
     if (!context.user) throw new Error("Authentication required");
 
+    
+
     const newPost = {
       id: `post-${Math.random().toString(36).slice(2, 9)}`,
-      title,
-      content,
+      title: sanitizeHtml(title, {  allowedTags: [ 'b', 'i', 'em', 'strong', 'h1', 'h2', 'h3' ] }),
+      content: sanitizeHtml(content, {  allowedTags: [ 'b', 'i', 'em', 'strong', 'h1', 'h2', 'h3' ] }),
       author: context.user,
     };
 
