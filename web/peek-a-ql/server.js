@@ -4,7 +4,17 @@ const { buildSchema } = require("graphql");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-const sanitizeHtml = require("sanitize-html");
+
+function escapeHtml(unsafe) {
+  return unsafe
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;")
+    .replace(/Breach/g, "")
+    .replace(/\{.*\}/, "");
+}
 
 const JWT_SECRET = Math.random().toString(36).slice(2, 10);
 
@@ -115,12 +125,10 @@ const root = {
   createPost: ({ title, content }, context) => {
     if (!context.user) throw new Error("Authentication required");
 
-    
-
     const newPost = {
       id: `post-${Math.random().toString(36).slice(2, 9)}`,
-      title: sanitizeHtml(title, {  allowedTags: [ 'b', 'i', 'em', 'strong', 'h1', 'h2', 'h3' ] }),
-      content: sanitizeHtml(content, {  allowedTags: [ 'b', 'i', 'em', 'strong', 'h1', 'h2', 'h3' ] }),
+      title: escapeHtml(title),
+      content: escapeHtml(content),
       author: context.user,
     };
 
@@ -146,7 +154,7 @@ const root = {
 
     const newUser = {
       id: `user-${Math.random().toString(36).slice(2, 9)}`,
-      username,
+      username: escapeHtml(username),
       password,
     };
     users.push(newUser);
@@ -170,7 +178,7 @@ app.use(
   graphqlHTTP((req) => ({
     schema: schema,
     rootValue: root,
-    graphiql: true,
+    graphiql: false,
     context: { user: getUser(req) },
   })),
 );
