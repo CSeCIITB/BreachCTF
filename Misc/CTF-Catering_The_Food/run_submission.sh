@@ -12,17 +12,17 @@ if [ $compile_status -ne 0 ]; then
 fi
 echo "Compilation succeeded."
 
-# Make sure the binary is executable.
+# Ensure the compiled binary is executable.
 chmod +x /tmp/submission
 
-# Copy the binary to an execution location.
+# Copy the binary into /home/runneruser so that it resides on an exec-enabled filesystem.
 cp /tmp/submission /home/runneruser/submission_exec
 chmod +x /home/runneruser/submission_exec
 
 passed=0
 total=0
 
-# Copy the testcases directory to a temporary location.
+# Create a copy of the testcases directory to enforce read-only behavior.
 cp -r /testcases /tmp/testcases_copy
 echo "Running test cases..."
 for input_file in /tmp/testcases_copy/input*.txt; do
@@ -34,9 +34,10 @@ for input_file in /tmp/testcases_copy/input*.txt; do
         exit 1
     fi
 
-    # Run the submission with input redirected.
-    output=$(/home/runneruser/submission_exec < "$input_file" 2>/dev/null)
+    # Run the submission with a timeout of 5 seconds.
+    output=$(timeout 5s /home/runneruser/submission_exec < "$input_file" 2>/dev/null)
     exit_status=$?
+    
     if [ $exit_status -eq 124 ]; then
         echo "Test case $test_index timed out."
     elif [ $exit_status -ne 0 ]; then
@@ -44,6 +45,7 @@ for input_file in /tmp/testcases_copy/input*.txt; do
     fi
 
     expected=$(cat "$expected_file")
+
     if [ "$output" = "$expected" ]; then
         echo "Test case $test_index passed."
         passed=$((passed+1))
@@ -59,6 +61,3 @@ if [ "$passed" -eq "$total" ]; then
 else
     exit 1
 fi
-
-
-# /home/runneruser/submission_exec < /tmp/testcases_copy/input1.txt
