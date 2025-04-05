@@ -110,7 +110,7 @@ def submit():
             ["/run_submission.sh"],
             capture_output=True,
             text=True,
-            timeout=5
+            timeout=120
         )
     except subprocess.TimeoutExpired:
         os.remove(submission_path)
