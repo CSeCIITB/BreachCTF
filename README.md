@@ -11,5 +11,8 @@ Upload your challenge in the following format:
         |   └── server.py
         ├── attachments
         |   └── server.py
+        ├── solution
+        |   ├── README.md
+        |   └── script.py
         └── README.md
 ```
