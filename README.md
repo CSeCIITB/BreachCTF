@@ -1,18 +1,1 @@
-Flag format: Breach{.*}
-
-Upload your challenge in the following format:
-```
-.
-└─── category
-    └── chall-name
-        ├── deploy
-        |   ├── flag.txt
-        |   ├── Dockerfile
-        |   └── server.py
-        ├── attachments
-        |   └── server.py
-        ├── solution
-        |   ├── README.md
-        |   └── script.py
-        └── README.md
-```
+This is the repository containing the challenges hosted in BreachCTF, the annual capture the flag competition conducted by IITBreachers
