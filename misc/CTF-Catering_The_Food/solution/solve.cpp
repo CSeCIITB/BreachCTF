@@ -2,56 +2,61 @@
 using namespace std;
 typedef long long ll;
 
-const int maxn = 600100;
-const int mod = 1e9+7;
+const ll maxn = 600100;
+const ll MOD = 1e9+7;
 
-ll fac[maxn+100],inv[maxn+100],power[maxn+100];
+ll a,b,c;
+ll factorial[maxn+100],inverse_fact[maxn+100],power[maxn+100];
 
-int a,b,c;
-
-ll comb(int a,int b)
+ll comb(ll a,ll b,ll c)
 {
-    return fac[a]*inv[b]%mod*inv[a-b]%mod;
+    return factorial[a+b+c]*inverse_fact[a]%MOD*inverse_fact[b]%MOD*inverse_fact[c]%MOD;
 }
-ll comb(int a,int b,int c)
+
+ll comb(ll a,ll b)
 {
-    return fac[a+b+c]*inv[a]%mod*inv[b]%mod*inv[c]%mod;
+    return factorial[a]*inverse_fact[b]%MOD*inverse_fact[a-b]%MOD;
 }
-int calc(int k)
+
+
+ll calc(ll k)
 {
-    int d = b - c;
-    int res=0;
-    for(int t1 = 0;2 * t1 + d <= k;t1++)
+    ll d = b - c;
+    ll res=0;
+    for(ll t1 = 0;2 * t1 + d <= k;t1++)
     {
-        int t2 = t1 + d;
-        int t3 = k - t1 - t2;
+        ll t2 = t1 + d;
+        ll t3 = k - t1 - t2;
         if(c - t1 - t3 < 0) continue;
-        res = (res + comb(t1,t2,t3) * comb(c - t1 - t3 + k-1,k-1) % mod * power[t3] % mod)%mod;
+        res = (res + comb(t1,t2,t3) * comb(c - t1 - t3 + k-1,k-1) % MOD * power[t3] % MOD)%MOD;
     }
     return res;
 }
-ll solve(int a)
+ll solve(ll a)
 {
-    return ((2LL*calc(a)%mod + calc(a+1))%mod + calc(a-1))%mod;
+    return ((2LL*calc(a)%MOD + calc(a+1))%MOD + calc(a-1))%MOD;
 }
 int main()
 {
-    fac[0]=1;
-    for(int i=1;i<=maxn;i++) {
-      fac[i]=fac[i-1]*i%mod;
-    }
-    inv[1]=1;
-    inv[0]=1;
-    for(int i=2;i<=maxn;i++) {
-      inv[i]=(mod-(mod/i)*inv[mod%i]%mod)%mod;
-    }
-    for(int i=1;i<=maxn;i++)  {
-      inv[i]=inv[i-1]*inv[i]%mod;
-    }
     power[0]=1;
-    for(int i=1;i<=maxn;i++) {
-      power[i]=(power[i-1]*2)%mod;
+    for(ll i=1;i<=maxn;i++) {
+      power[i]=(power[i-1]*2)%MOD;
     }
+
+    factorial[0]=1;
+    for(ll i=1;i<=maxn;i++) {
+      factorial[i]=factorial[i-1]*i%MOD;
+    }
+
+    inverse_fact[1]=1;
+    inverse_fact[0]=1;
+    for(ll i=2;i<=maxn;i++) {
+      inverse_fact[i]=(MOD-(MOD/i)*inverse_fact[MOD%i]%MOD)%MOD;
+    }
+    for(ll i=1;i<=maxn;i++)  {
+      inverse_fact[i]=inverse_fact[i-1]*inverse_fact[i]%MOD;
+    }
+    
     cin>>a>>b>>c;
     {
         if(a<c) swap(a,c);
